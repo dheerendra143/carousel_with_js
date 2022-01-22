@@ -1,0 +1,116 @@
+<style>
+  .img-wp {
+    width: 100px;
+    height: auto;
+    padding: 5px;
+  }
+
+  .img-wp img {
+    width: 100px;
+    height: auto;
+  }
+
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100px;
+    height: 35px;
+
+  }
+
+  .carousel-wp {
+    display: flex;
+    position: absolute;
+    left: 0;
+
+  }
+</style>
+<div>
+</div>
+<div class="carousel" id="carousel">
+  <div class="carousel-wp" id="caraouselWp">
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+    <div class="img-wp">
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+    </div>
+  </div>
+</div>
+<button id="prevBtn" onclick="slide('prev')">previous</button>
+<button id="nextBtn" onclick="slide('next')">next</button>
+<button id="autoBtn" onclick="autoSlider('prev')">Auto</button>
+</div>
+<script>
+  var timerRef = null;
+  function autoSlider(type) {
+    let timer = 300;
+    document.querySelector("#autoBtn").disabled = true;
+    timerRef = setInterval(()=>{
+      type = slide(type, true);
+      console.log("slider", type);
+    },timer);
+  }
+
+
+
+  function slide(type, isAuto = false) {
+   if(!isAuto) {
+    clearInterval(timerRef);
+    document.querySelector("#autoBtn").disabled = false;
+   } 
+    let len = document.querySelector(".img-wp").offsetWidth;
+    let totalWidth = document.querySelector("#caraouselWp").offsetWidth
+    let curPosition = +document.querySelector("#caraouselWp").style.left.replace("px", '');
+    
+    document.querySelector("#carousel").style.width = (len + 'px');
+    if (type === 'prev') {
+      //Previous Button
+      let crrLen = Math.abs(curPosition) + len;
+      document.querySelector("#nextBtn").disabled = false;
+      if (totalWidth > crrLen) {
+        document.querySelector("#caraouselWp").style.left = curPosition - len / 4;
+        return 'prev';
+      } else {
+        document.querySelector("#prevBtn").disabled = true;
+        return 'next';
+      }
+    } else {
+      // Next button
+      document.querySelector("#prevBtn").disabled = false;
+      if (curPosition < 0) {
+        document.querySelector("#caraouselWp").style.left = curPosition + len / 2;
+        return 'next';
+      } else {
+        document.querySelector("#nextBtn").disabled = true;
+        return 'prev';
+
+      }
+    }
+  }
+
+</script>
