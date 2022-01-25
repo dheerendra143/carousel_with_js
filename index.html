@@ -1,20 +1,20 @@
 <style>
   .img-wp {
-    width: 100px;
+    width: 300px;
     height: auto;
     padding: 5px;
   }
 
   .img-wp img {
-    width: 100px;
+    width: 300px;
     height: auto;
   }
 
   .carousel {
     position: relative;
     overflow: hidden;
-    width: 100px;
-    height: 35px;
+    width: 300px;
+    height: 200px;
 
   }
 
@@ -30,34 +30,34 @@
 <div class="carousel" id="carousel">
   <div class="carousel-wp" id="caraouselWp">
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/9/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/8/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/1/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/2/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/3/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/4/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/5/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/6/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/7/300/200" />
     </div>
     <div class="img-wp">
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <img src="https://picsum.photos/id/8/300/200" />
     </div>
   </div>
 </div>
@@ -68,32 +68,36 @@
 <script>
   var timerRef = null;
   function autoSlider(type) {
-    let timer = 300;
+    let timer = 1000;
     document.querySelector("#autoBtn").disabled = true;
-    timerRef = setInterval(()=>{
+    timerRef = setInterval(() => {
       type = slide(type, true);
       console.log("slider", type);
-    },timer);
+    }, timer);
   }
 
 
 
   function slide(type, isAuto = false) {
-   if(!isAuto) {
-    clearInterval(timerRef);
-    document.querySelector("#autoBtn").disabled = false;
-   } 
+    if (!isAuto) {
+      clearInterval(timerRef);
+      document.querySelector("#autoBtn").disabled = false;
+    }
     let len = document.querySelector(".img-wp").offsetWidth;
     let totalWidth = document.querySelector("#caraouselWp").offsetWidth
     let curPosition = +document.querySelector("#caraouselWp").style.left.replace("px", '');
-    
+    document.querySelector("#caraouselWp").style.transition= "left 500ms ease 0s";
+
     document.querySelector("#carousel").style.width = (len + 'px');
+    let sec = 50;
     if (type === 'prev') {
       //Previous Button
       let crrLen = Math.abs(curPosition) + len;
       document.querySelector("#nextBtn").disabled = false;
+      
       if (totalWidth > crrLen) {
-        document.querySelector("#caraouselWp").style.left = curPosition - len / 4;
+        document.querySelector("#caraouselWp").style.left = curPosition - len;
+      
         return 'prev';
       } else {
         document.querySelector("#prevBtn").disabled = true;
@@ -103,7 +107,8 @@
       // Next button
       document.querySelector("#prevBtn").disabled = false;
       if (curPosition < 0) {
-        document.querySelector("#caraouselWp").style.left = curPosition + len / 2;
+        document.querySelector("#caraouselWp").style.left = curPosition + len ;
+      
         return 'next';
       } else {
         document.querySelector("#nextBtn").disabled = true;
